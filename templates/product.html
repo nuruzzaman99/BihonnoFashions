@@ -1,0 +1,69 @@
+{% block product %}
+{% load static %}
+{% load cart %}
+
+<!-- Products Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5 pb-3">
+
+        {% for Products in Product %}
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div class="card product-item border-0 mb-4">
+                <a href='?Products={{Products.id}}' class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                    <img class="img-fluid w-100" src="{{Products.image1.url}}" alt="">
+                </a>
+                <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                    <h6 class="text-truncate mb-3">{{Products.name}}</h6>
+                    <div class="d-flex justify-content-center">
+                        <h6><b>BDT {{Products.offerprice}}</b></h6>
+                        <h6 class="text-muted ml-2"><del>BDT {{Products.price}}</del></h6>
+                    </div>
+                </div>
+                {% if Products|is_in_cart:request.session.cart %}
+                <div class="card-footer d-flex justify-content-between bg-light border">
+                    <form action="" method = "POST">
+                        {% csrf_token %}
+                        <input hidden type='text' name = 'Products' value = '{{Products.id}}'>
+                        <input hidden type='text' name = 'remove' value = 'True'>
+                        <a href="">
+                            <button type="submit" id = 'remove' class="btn btn-sm text-light p-0">
+                                <i class="fas fa-minus text-light mr-1"></i>
+                            </button>
+                        </a>
+                    </form>
+
+                    <div class="text-center text-light p-0">
+                        {{Products|cart_quantity:request.session.cart}} in cart
+                    </div>
+
+                    <form action="" method = "POST">
+                        {% csrf_token %}
+                        <input hidden type='text' name = 'Products' value = '{{Products.id}}'>
+                        <a href="">
+                            <button type="submit" class="btn btn-sm p-1">
+                                <i class="fas fa-plus text-light mr-1"></i>
+                            </button>
+                        </a>
+                    </form>
+                </div>
+                {% else %}
+                <form action="" method = "POST">
+                    {% csrf_token %}
+                    <input hidden type='text' name = 'Products' value = '{{Products.id}}'>
+
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="" class="btn btn-sm text-light p-0"><i class="fas fa-eye text-light mr-1"></i>Details</a>
+                        <a href="">
+                            <i class="fas fa-shopping-cart text-light mr-1"></i>
+                            <input type='submit' class="btn btn-sm text-light p-0" value='Add To Cart'>
+                        </a>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Products End -->
+{% endblock %}

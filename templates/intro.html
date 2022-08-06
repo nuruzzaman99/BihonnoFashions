@@ -1,0 +1,90 @@
+{% block intro %}
+{% load static %}
+{% static 'image' as baseUrl %}
+    <!-- Intro Start -->
+    <div class="container-fluid mb-5">
+        <div class="row border-top px-xl-5">
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1 p-2">
+                <div class="d-flex align-items-center border mb-4" style="padding: 10px;">
+                    <h1 class="fa fa-check text-derk m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold text-primary m-0 p-md-3">Quality Product</h5>
+                </div>
+                <div class="d-flex align-items-center border mb-4" style="padding: 10px;">
+                    <h1 class="fa fa-shipping-fast text-derk m-0 mr-2"></h1>
+                    <h5 class="font-weight-semi-bold text-primary m-0 p-md-3">Free Shipping</h5>
+                </div>
+                <div class="d-flex align-items-center border mb-4" style="padding: 10px;">
+                    <h1 class="fas fa-exchange-alt text-derk m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold text-primary m-0 p-md-3">14-Day Return</h5>
+                </div>
+                <div class="d-flex align-items-center border mb-4" style="padding: 10px;">
+                    <h1 class="fa fa-phone-volume text-derk m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold text-primary m-0 p-md-3">24/7 Support</h5>
+                </div>
+            </div>
+            <div class="col-lg-9  p-2">
+                <div id="header-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for Intros in Intro %}
+                        {% if forloop.first %}
+                        <div class="carousel-item active" style="height: 383px;">
+                            <img class="img-fluid" src="{{Intros.image.url}}" alt="Image">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 100%;">
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">{{Intros.offer}}</h4>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">{{Intros.name}}</h3>
+                                    <a href="{% url 'shop' %}" class="btn btn-light py-2 px-3">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="carousel-item" style="height: 383px;">
+                            <img class="img-fluid" src="{{Intros.image.url}}" alt="Image">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 100%;">
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">{{Intros.offer}}</h4>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">{{Intros.name}}</h3>
+                                    <a href="{% url 'shop' %}" class="btn btn-light py-2 px-3">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
+                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                            <span class="carousel-control-prev-icon mb-n2"></span>
+                        </div>
+                    </a>
+                    <a class="carousel-control-next" href="#header-carousel" data-slide="next">
+                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                            <span class="carousel-control-next-icon mb-n2"></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Intro End -->
+
+    <!-- Categories Start -->
+    <div class="container-fluid pt-1">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="text-primary px-2">Categories</span></h2>
+        </div>
+        <div class="row px-xl-5 pb-3">
+            {% for Categories in Category %}
+            <div class="col-lg-4 col-md-6 pb-1">
+                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                    <p class="text-right">{{Categories.total_item}} Products</p>
+                    <a href='?Categories={{Categories.id}}' class="cat-img position-relative overflow-hidden mb-3">
+                        <img src="{{Categories.image.url}}" class="img-fluid" alt="...">
+                    </a>
+                    <h5 class="font-weight-semi-bold m-0">{{Categories.name}}</h5>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Categories End -->
+
+{% endblock %}

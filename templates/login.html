@@ -1,0 +1,38 @@
+{% include 'head.html' %}
+    <body>
+        {% include 'header.html' %}
+        
+        <div class="container-fluid mb-4 px-xl-5">
+            <form action="login" method="POST">
+                {% csrf_token %}
+                <h2 class="font-weight-semi-bold mb-5 text-primary">{{name}}</h2>
+                <input hidden type="text" name='data'>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>E-mail / Username</label>
+                        <input class="form-control" type="text" name='username' placeholder="example@email.com" required="">
+                    </div>
+                    
+                    <div class="col-md-6 form-group">
+                        <label>Password</label>
+                        <input class="form-control" type="password" name="password" placeholder="Password" required="">
+                    </div>
+                </div>
+
+                <div class="col-md-12 form-group">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="newaccount" required="">
+                        <label class="custom-control-label" for="newaccount">Remember me!</label>
+                    </div>
+                </div>
+                <div class="card-footer border-secondary bg-transparent">
+                    <button type='submit' class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Login</button>
+                </div>
+            </form>
+
+            <p>Don't have an Account? <a href="{% url 'registration' %}" class='text-primary'> Create Account!</a></p> 
+        </div>
+
+        {% include 'footer.html' %}
+    </body>
+</html>

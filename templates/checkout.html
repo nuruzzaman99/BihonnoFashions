@@ -1,0 +1,224 @@
+{% include 'head.html' %}
+{% load cart %}
+    <body>
+        {% include 'header.html' %}
+        <div class='text-center'>
+            <h1 class='text-derk'>{{name}}</h1>
+        </div>
+
+        <!-- Checkout Start -->
+        <div class="container-fluid pt-5">
+            <form action='' class="row px-xl-5" method='POST'>
+                {% csrf_token %}
+                <div class="col-lg-8">
+                    <div class="mb-4">
+                        <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                        <div class="row">
+                            {% if user.is_authenticated %}
+                            <div class="col-md-6 form-group">
+                                <label>Name</label>
+                                <input class="form-control" type="text" name='name' placeholder="Md Naeem" value='{{user.first_name}}' required=''>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>E-mail</label>
+                                <input class="form-control" type="email" name='email' placeholder="example@email.com" value='{{user.email}}'>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Mobile No</label>
+                                <input class="form-control" type="text" name='phone' placeholder="+880 1456 789385" required=''>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Address</label>
+                                <input class="form-control" type="text" name='address' placeholder="Road# House# Block#" required=''>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label>City</label>
+                                <select class="custom-select" type="text" name='city'>
+                                    <option selected value='Dhaka'>Dhaka</option>
+                                    <option value='Barishal'>Barishal</option>
+                                    <option value='Chattogram'>Chattogram</option>
+                                    <option value='Khulna'>Khulna</option>
+                                    <option value='Rajshahi'>Rajshahi</option>
+                                    <option value='Rangpur'>Rangpur</option>
+                                    <option value='Mymensingh'>Mymensingh</option>
+                                    <option value='Sylhet'>Sylhet</option>
+                                </select>
+                            </div>
+                            <input hidden type="password" name='password1' value='{{user.password}}'>
+                            
+
+                            {% elif Customers %}
+                            <div class="col-md-6 form-group">
+                                <label>Name</label>
+                                <input class="form-control" type="text" name='name' placeholder="Md Naeem" value='{{Customers.name}}' required=''>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>E-mail</label>
+                                <input class="form-control" type="email" name='email' placeholder="example@email.com" value='{{Customers.email}}'>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Mobile No</label>
+                                <input class="form-control" type="text" name='phone' placeholder="+880 1456 789385" value='{{Customers.phone}}' required=''>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Address</label>
+                                <input class="form-control" type="text" name='address' placeholder="Road# House# Block#" value='{{Customers.address}}' required=''>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label>City</label>
+                                <select class="custom-select" type="text" name='city'>
+                                    <option selected value='{{Customers.city}}'>{{Customers.city}}</option>
+                                    <option value='Barishal'>Barishal</option>
+                                    <option value='Dhaka'>Dhaka</option>
+                                    <option value='Chattogram'>Chattogram</option>
+                                    <option value='Khulna'>Khulna</option>
+                                    <option value='Rajshahi'>Rajshahi</option>
+                                    <option value='Rangpur'>Rangpur</option>
+                                    <option value='Mymensingh'>Mymensingh</option>
+                                    <option value='Sylhet'>Sylhet</option>
+                                </select>
+                            </div>
+                            <input hidden type="password" name='password1' value='{{Customers.password}}'>
+                            
+                            {% else %}
+                            <div class="col-md-6 form-group">
+                                <label>Name</label>
+                                <input class="form-control" type="text" name='name' placeholder="Md Naeem" value='{{data.name}}' required=''>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>E-mail</label>
+                                <input class="form-control" type="email" name='email' placeholder="example@email.com" value='{{data.email}}'>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Mobile No</label>
+                                <input class="form-control" type="text" name='phone' placeholder="+880 1456 789385" value='{{data.phone}}' required=''>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Address</label>
+                                <input class="form-control" type="text" name='address' placeholder="Road# House# Block#" value='{{data.address}}'  required=''>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>City</label>
+                                <input class="form-control" type="text" name='city' placeholder="Dhaka" value='{{data.city}}' required=''>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Password</label>
+                                <input class="form-control" type="password" name='password1' placeholder="Password" required=''>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Confirm Password</label>
+                                <input class="form-control" type="password" name='password2' placeholder="Confirm Password" required=''>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="newaccount">
+                                <label class="custom-control-label" for="newaccount">Create an account</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="shipto">
+                                <label class="custom-control-label" for="shipto"  data-toggle="collapse" data-target="#shipping-address">Ship to different address</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse mb-4" id="shipping-address">
+                        <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>Name</label>
+                                <input class="form-control" type="text" placeholder="Md Naeem">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>E-mail</label>
+                                <input class="form-control" type="text" placeholder="example@email.com" >
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Mobile No</label>
+                                <input class="form-control" type="text" placeholder="+880 1456 789385" >
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Address</label>
+                                <input class="form-control" type="text" placeholder="Road# House# Block#" >
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>City</label>
+                                <input class="form-control" type="text" placeholder="Dhaka">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Billing start -->
+                <div class="col-lg-4">
+                    <div class="card border-secondary mb-5">
+                        <div class="card-header bg-secondary border-0">
+                            <h4 class="font-weight-semi-bold m-0 text-light">Order Total</h4>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="font-weight-medium mb-3">Products</h5>
+
+                            {% for Products in Product %}
+                            <div class="d-flex justify-content-between">
+                                <p>{{Products.name}}</p>
+                                <p> {{Products|cart_quantity:request.session.cart}} <span>&#215;</span> {{Products.price}} ৳</p>
+                            </div>
+                            {% endfor %}
+                            
+                            <hr class="mt-0">
+                            <div class="d-flex justify-content-between mb-3 pt-1">
+                                <h6 class="font-weight-medium">Subtotal</h6>
+                                <h6 class="font-weight-medium">{{Product|total_cart_price:request.session.cart}} ৳</h6>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="font-weight-medium">Shipping</h6>
+                                <h6 class="font-weight-medium">100 ৳</h6>
+                            </div>
+                        </div>
+                        <div class="card-footer border-secondary bg-transparent">
+                            <div class="d-flex justify-content-between mt-2">
+                                <h5 class="font-weight-bold">Total</h5>
+                                <h5 class="font-weight-bold">{{Product|sub_total:request.session.cart}} ৳</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-secondary mb-5">
+                        <div class="card-header bg-secondary border-0">
+                            <h4 class="font-weight-semi-bold m-0 text-light">Payment</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" name="payment" id="paypal">
+                                    <label class="custom-control-label" for="paypal">Cash on delivery</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" name="payment" id="directcheck">
+                                    <label class="custom-control-label" for="directcheck">Bkash</label>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
+                                    <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer border-secondary bg-transparent">
+                            <button type='submit' class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3 text-light">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        {% include 'footer.html' %}
+    </body>
+</html>

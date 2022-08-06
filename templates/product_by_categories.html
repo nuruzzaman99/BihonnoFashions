@@ -1,0 +1,25 @@
+{% include 'head.html' %}
+    <body>
+        {% include 'header.html' %}
+
+        {% if Product %}
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="text-primary px-2">{{Product.0.category}} Items</span></h2>
+        </div>
+
+        {% include 'product.html' %}
+        
+        {% else %}
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="text-primary px-2">Not Available</span></h2>
+        </div>
+        {% endif %}
+
+
+        {% include 'offer.html' %}
+
+        {% include 'itemsuggestion.html' %}
+
+        {% include 'footer.html' %}
+    </body>
+</html>

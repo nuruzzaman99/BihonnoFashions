@@ -1,0 +1,61 @@
+{% include 'head.html' %}
+    <body>
+        {% include 'header.html' %}
+
+        <div class="container-fluid pt-2">
+            <div class="row px-xl-5 col-lg-8">
+                <div class="mb-4">
+                    <form action="registration" method = "POST">
+                        {% csrf_token %}
+                        <h2 class="font-weight-semi-bold mb-5 text-primary">{{name}}</h2>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>Name</label>
+                                <input class="form-control" type="text" name='name' placeholder="Name" required="">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Username</label>
+                                <input class="form-control" type="text" name='username' placeholder="User name" required="">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>E-mail</label>
+                                <input class="form-control" type="text" name='email' placeholder="example@email.com" required="">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Mobile No</label>
+                                <input class="form-control" type="text" name='phone' placeholder="+880 1456 789385" required="">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Address</label>
+                                <input class="form-control" type="text" name='address' placeholder="Road# House# Block#" required="">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>City</label>
+                                <input class="form-control" type="text" name='city' placeholder="Dhaka" required="">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Password</label>
+                                <input class="form-control" type="password" name="password1" placeholder="Password" required="">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Confirm Password</label>
+                                <input class="form-control w3lpass" type="password" name="password2" placeholder="Confirm Password" required="">
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="newaccount" required="">
+                                <label class="custom-control-label" for="newaccount">I Agree To The Terms & Conditions</label>
+                            </div>
+                        </div>
+                        <div class="card-footer border-secondary bg-transparent">
+                            <button type='submit' class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Create Account</button>
+                        </div>
+                    </form>
+                    <p>Have an Account? <a href="{% url 'login' %}" class='text-primary'> Login Now!</a></p> 
+                </div>
+            </div>
+        </div>
+        {% include 'footer.html' %}
+    </body>
+</html>
