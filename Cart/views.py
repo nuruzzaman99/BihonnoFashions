@@ -42,6 +42,10 @@ class cartDetail(View):
         Products = Product.objects.filter(id__in = ids)
 
         Categories = Category.objects.all()
+        category_id = request.GET.get('Categories')
+        if category_id:
+            request.session['category_id'] = category_id
+            return redirect('by_category')
         return render(request, 'cartDetail.html', {'Category' : Categories, 'Product' : Products})
 
 
@@ -139,6 +143,10 @@ class checkout(View):
         else:
             Customers = None
         Categories = Category.objects.all() 
+        category_id = request.GET.get('Categories')
+        if category_id:
+            request.session['category_id'] = category_id
+            return redirect('by_category')
         return render(request, 'checkout.html',  {'Customers' : Customers, 'Category' : Categories, 'Product' : Products})
 
 
@@ -158,4 +166,8 @@ class orderHistory(View):
             Orders = Order.objects.filter(Customer = Customers).order_by('-date')
 
         Categories = Category.objects.all() 
+        category_id = request.GET.get('Categories')
+        if category_id:
+            request.session['category_id'] = category_id
+            return redirect('by_category')
         return render(request, 'orderHistory.html', {'name' : 'Order History', 'Category' : Categories, 'Order': Orders, 'Customers' : Customers})

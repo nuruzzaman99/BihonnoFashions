@@ -108,7 +108,13 @@ class shopDetail(View):
 
     def get(self, request):
         Categories = Category.objects.all() 
-        return render(request, 'shopDetail.html', {'Category' : Categories})
+        category_id = request.GET.get('Categories')
+        if category_id:
+            request.session['category_id'] = category_id
+            return redirect('by_category')
+
+        trendy_products = Product.objects.filter(trendy = True)
+        return render(request, 'shopDetail.html', {'Category' : Categories, 'trendy_product' : trendy_products})
 
 
 class contact(View):
@@ -117,7 +123,12 @@ class contact(View):
 
     def get(self, request):
         Categories = Category.objects.all() 
-        return render(request, 'contact.html', {'Category' : Categories})
+        category_id = request.GET.get('Categories')
+        if category_id:
+            request.session['category_id'] = category_id
+            return redirect('by_category')
+        trendy_products = Product.objects.filter(trendy = True)
+        return render(request, 'contact.html', {'Category' : Categories, 'trendy_product' : trendy_products})
 
 
 class profile(View):
@@ -139,8 +150,14 @@ class profile(View):
 
             return render(request, 'profile.html', {'name' : 'Your Orders', 'Order': Orders})
 
-        Categories = Category.objects.all() 
-        return render(request, 'profile.html', {'Category' : Categories, 'name' : 'Your Not'})
+        Categories = Category.objects.all()
+        category_id = request.GET.get('Categories')
+        if category_id:
+            request.session['category_id'] = category_id
+            return redirect('by_category') 
+
+        trendy_products = Product.objects.filter(trendy = True)
+        return render(request, 'profile.html', {'Category' : Categories, 'name' : 'Your Not', 'trendy_product' : trendy_products})
 
 
         
