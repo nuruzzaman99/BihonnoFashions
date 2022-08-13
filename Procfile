@@ -1,1 +1,1 @@
-web gunicorn BihonnoFashions.wsgi:application --log-file -
+web: gunicorn gettingstarted.wsgi
