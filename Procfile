@@ -1,0 +1,1 @@
+web: gunicorn BihonnoFashions.wsgi --log-file
